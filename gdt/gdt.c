@@ -30,6 +30,9 @@ extern void gdt_flush(void);
 
 
 void load_gdt(void) {
+	gdtptr.limit = (sizeof(gdt_table) * 5) - 1;
+	gdtptr.base = (unsigned long)&gdt_table;
+	
 	make_gdt_entry(0, 0, 0, 0, 0); // Null segment.
 	make_gdt_entry(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); // Code segment
 	make_gdt_entry(2, 0, 0xFFFFFFFF, 0x92, 0xCF); // Data segment
